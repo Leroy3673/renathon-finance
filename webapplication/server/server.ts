@@ -6,6 +6,7 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import cors from 'cors';
 import { schema } from './schema.mjs';
 import dotenv from 'dotenv';
+import domain from './routes/index.mjs';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ const server = new ApolloServer({
 
 await server.start();
 
+// GraphQL endpoint
 app.use(
   '/graphql',
   expressMiddleware(server, {
@@ -31,6 +33,11 @@ app.use(
     }),
   }),
 );
+
+
+// REST Endpoints
+app.use(domain);
+
 
 // Listen to the server and log the correct port
 await new Promise<void>((resolve) => httpServer.listen(PORT, resolve));
