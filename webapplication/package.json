@@ -3,25 +3,49 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "concurrently -n FRONTEND,BACKEND -c cyan,green \"npm run dev:next\" \"npm run dev:server\"",
+    "dev:next": "next dev --turbopack",
+    "dev:server": "nodemon --watch app-server --ext ts --exec node --loader ts-node/esm server/server.ts",
+    "server": "nodemon --watch server --ext ts --exec node --loader ts-node/esm server/server.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/server": "^4.12.0",
+    "@graphql-tools/graphql-file-loader": "^8.0.19",
+    "@graphql-tools/load": "^8.0.19",
+    "@modelcontextprotocol/sdk": "^1.9.0",
+    "@qdrant/js-client-rest": "^1.13.0",
+    "@types/cors": "^2.8.17",
+    "alchemy-sdk": "^3.5.6",
+    "body-parser": "^2.2.0",
+    "cores": "^0.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.5",
+    "express": "^5.1.0",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.10.0",
+    "mongoose": "^8.13.2",
+    "next": "^15.2.5",
+    "prisma": "^6.5.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.1.7"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20.17.30",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "concurrently": "^9.1.2",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
-    "@eslint/eslintrc": "^3"
-  }
+    "nodemon": "^3.1.9",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "type": "module"
 }
